@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var net = require('net');
 
 var app = express();
 
@@ -36,6 +37,27 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+let socketServer = net.createServer()
+.on("connection", (socket) => {
+    socket.on("data", (data) => {
+        console.log(data.toString());
+    });
+}).on("listening", () => {
+    console.log("listening");
+}).on("error", () => {
+    console.log("error");
+}).on("close", () => {
+    console.log("Close");
+});
+
+socketServer.listen(
+    {
+        port: 8081
+    },
+    () => {
+    console.log('opened server on', socketServer.address());
 });
 
 module.exports = app;
