@@ -8,7 +8,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var socketServer = require('./lib/socketServer');
-var sequelize = require('./lib/sequelize')
+var sequelize = require('./lib/sequelize');
+var expressLib = require('./lib/express');
 
 var app = express();
 
@@ -24,13 +25,12 @@ console.log = function(d) { //
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'admin', 'dist' )));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -50,6 +50,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+expressLib.init(app);
 
 socketServer.initSocket();
 
