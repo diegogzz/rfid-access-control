@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "build": "cd ./admin && npm i && npm run build && cd ..",
     "dev": "node ./bin/www"
   },
   "dependencies": {
@@ -12,9 +11,8 @@
     "@angular/cdk": "^6.4.5",
     "@angular/material": "^6.4.5",
     "cookie-parser": "~1.4.3",
-    "cors": "^2.8.4",
     "debug": "~2.6.9",
-    "express": "^2.5.9",
+    "express": "~4.16.0",
     "glob": "^7.1.2",
     "http-errors": "~1.6.2",
     "lodash": "^4.17.10",
