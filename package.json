@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "cd ./admin && npm i && npm run build && cd .. && node ./bin/www",
-    "build": "cd ./admin && npm i && npm run build && cd .. && node ./bin/www",
+    "start": "node ./bin/www",
+    "build": "cd ./admin && npm i && npm run build && cd ..",
     "dev": "node ./bin/www"
   },
   "dependencies": {
