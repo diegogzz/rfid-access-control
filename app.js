@@ -6,9 +6,21 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var net = require('net');
+
+var socketServer = require('./lib/socketServer');
+var sequelize = require('./lib/sequelize')
 
 var app = express();
+
+var fs = require('fs');
+var util = require('util');
+var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
+var log_stdout = process.stdout;
+
+console.log = function(d) { //
+  log_file.write(util.format(d) + '\n');
+  log_stdout.write(util.format(d) + '\n');
+};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,25 +51,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-let socketServer = net.createServer()
-.on("connection", (socket) => {
-    socket.on("data", (data) => {
-        console.log(data.toString());
-    });
-}).on("listening", () => {
-    console.log("listening");
-}).on("error", () => {
-    console.log("error");
-}).on("close", () => {
-    console.log("Close");
-});
-
-socketServer.listen(
-    {
-        port: 8081
-    },
-    () => {
-    console.log('opened server on', socketServer.address());
-});
+socketServer.initSocket();
 
 module.exports = app;
