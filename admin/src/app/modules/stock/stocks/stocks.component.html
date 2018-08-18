@@ -1,0 +1,56 @@
+<div>
+    <div class="title">
+      Inventario
+    </div>
+    <div class="content-cards">
+      <div class="card-sale-list">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Conteos</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <table class="sale">
+              <thead>
+                <th>#</th>
+                <th>Producto</th>
+                <th>Cantidad Actual</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of stocks; let i = index" (click)="selectStock(item)">
+                  <td>{{i+1}}</td>
+                  <td>{{item.product?.name }}</td>
+                  <td>{{item.quantity }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="card-sale-add">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Nuevo Conteo</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="item">
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="newStock.date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field>
+                  <mat-select placeholder="Productos" [(ngModel)]="newStock.product" name="producto">
+                    <mat-option *ngFor="let item of products" [value]="item">{{item.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" >
+                  <mat-label>Cantidad</mat-label>
+                  <input matInput placeholder="cantidad" [(ngModel)]="newStock.quantity" type="number" min="1">
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="addStock()">Guardar</button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>

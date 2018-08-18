@@ -1,0 +1,13 @@
+button{
+    height: 100px;
+    margin-left: 20px;
+    width: 180px;
+}
+nav{
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	align-content: space-between;
+}
