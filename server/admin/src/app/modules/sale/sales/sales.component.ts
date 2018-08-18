@@ -14,27 +14,30 @@ export class SalesComponent implements OnInit {
 
   newSale:Sale;
   newLine:LineSale;
+  products:Array<Products>;
 
-  products:Array<Products> = [
+  /*products:Array<Products> = [
     { id:"1", name: "producto A", prize: 3, codeNFC:"1"},
     { id:"2", name: "Producto B", prize: 4, codeNFC:"2"},
     { id:"3", name: "Producto C", prize: 5, codeNFC:"3"},
     { id:"4", name: "Producto D", prize: 6, codeNFC:"4"},
     { id:"5", name: "Producto E", prize: 7, codeNFC:"5"}
-  ]
+  ]*/
 
   constructor(private doorService:DoorService) { }
 
   ngOnInit() {
     this.sales= new Array<Sale>();
     this.refresh();
-    this.getProducts();
+  
   }
   refresh(){
     this.newSale= new Sale();
     this.newSale.date = new Date(Date.now());
     this.newLine= new LineSale();
     this.newSale.total=0;
+    this.getProducts();
+    this.getSales();
    }
   addLine()
   {
@@ -55,13 +58,30 @@ export class SalesComponent implements OnInit {
     if(!this.sales)
       this.sales= new Array<Sale>();
     this.sales.push(this.newSale);
-    this.refresh();
+    this.doorService.addSale(this.newSale).subscribe(
+      data=> {
+        this.refresh();
+      }, 
+      error =>{
+        console.log(error)
+      }
+    ); 
   }
   getProducts()
   {
     this.doorService.getProducts().subscribe(
       data=>{
-        console.log(data)
+        this.products=data;
+      }, error=>{
+        console.log(error)
+      }
+    );
+  }
+  getSales()
+  {
+    this.doorService.getSales().subscribe(
+      data=>{
+        this.sales=data;
       }, error=>{
         console.log(error)
       }

@@ -1,7 +1,6 @@
 'use strict';
 
 var path = require('path');
-var _ = require('underscore');
 
 var utils = require('./utils');
 

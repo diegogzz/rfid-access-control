@@ -1,0 +1,52 @@
+.card-sale-list{
+    width: 80%;
+    max-width: 40%;
+    margin: 10px;
+}
+
+.content-cards
+{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: baseline;
+	align-content: stretch;
+}
+.title{
+    font-size: 100px;
+    text-align: center;
+    color: #517cbe;
+    margin-top: 10px;
+
+}
+.card-sale-list th{
+    width: 33%;
+    color: white;
+    border-color: #517cbe
+}
+.sale{
+    width: 100%;
+    margin: 10px;
+    border-radius: 10px;
+}
+.sale > thead{
+    background-color: #517cbe;
+    color: white;
+    border: 0px;
+}
+
+.item{
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: baseline;
+	align-content: stretch;
+}
+th, td{
+    align-content: center;
+    min-height: 100px;
+    padding: 10px;
+    text-align: center;
+}

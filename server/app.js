@@ -4,39 +4,31 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-//var indexRouter = require('./routes/index');
-//var usersRouter = require('./routes/users');
-
 var socketServer = require('./lib/socketServer');
 var sequelize = require('./lib/sequelize');
 var expressLib = require('./lib/express');
-var cors = require('cors');
 
-var app = express.createServer();
-app.use(cors());
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
-var fs = require('fs');
-var util = require('util');
-var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
-var log_stdout = process.stdout;
+var app = express();
 
-console.log = function(d) { //
-  log_file.write(util.format(d) + '\n');
-  log_stdout.write(util.format(d) + '\n');
-};
+expressLib.init(app);
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
+// view engine setup
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'admin', 'dist' )));
-expressLib.init(app);
-//app.use('/', indexRouter);
-//app.use('/users', usersRouter);
+// app.use(express.static(path.join(__dirname, 'public')));
+
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
+
+app.use(express.static(path.join(__dirname, 'admin', 'dist')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -51,10 +43,8 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  // res.render('error');
 });
-
-
 
 socketServer.initSocket();
 

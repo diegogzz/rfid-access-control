@@ -1,0 +1,85 @@
+<div>
+  <div class="title">
+    Ventas
+  </div>
+  <div class="content-cards">
+    <div class="card-sale-list">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Ventas</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table class="sale">
+            <thead>
+              <th>#</th>
+              <th>Fecha</th>
+              <th>Total</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of sales; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{item.date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{item.total | currency }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="card-sale-add">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Nueva venta</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="item">
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker" [(ngModel)]="newSale.date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <p>
+              <mat-form-field appearance="fill">
+                <mat-label>Total</mat-label>
+                <input matInput placeholder="Placeholder" [(ngModel)]="newSale.total"  disabled>
+              </mat-form-field>
+            </p>
+          </div>
+          <div class="item">
+            <mat-form-field>
+              <mat-select placeholder="Productos" [(ngModel)]="newLine.product" name="producto">
+                <mat-option *ngFor="let item of products" [value]="item">{{item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" >
+              <mat-label>Cantidad</mat-label>
+              <input matInput placeholder="cantidad" [(ngModel)]="newLine.quantity" type="number" min="1">
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="addLine()">Agregar</button>
+          </div>
+          <div class="item">
+            <table class="sale">
+              <thead>
+                <th>#</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>SubTotal</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of newSale.lines; let i = index">
+                  <td>{{i+1}}</td>
+                  <td>{{item.product?.name}}</td>
+                  <td>{{item.quantity}}</td>
+                  <td>{{item.product?.prize | currency }}</td>
+                  <td>{{item.quantity*item.product?.prize | currency }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="item"><button mat-raised-button color="primary" (click)="addSale()">Guardar Venta</button></div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

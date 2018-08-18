@@ -1,0 +1,29 @@
+<div>
+  <div class="title">
+    Inventario VS Conteo NFC
+  </div>
+  <div class="content-cards">
+    <div class="card-sale-list">
+      <mat-card>
+        <mat-card-content>
+          <table class="sale">
+            <thead>
+              <th>#</th>
+              <th>Producto</th>
+              <th>Cantidad en inventario</th>
+              <th>Cantidad detectadapor NFC</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of stocks; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{item.product?.name }}</td>
+                <td>{{item.quantity }}</td>
+                <td>{{searchRegisterByNFC(item.product?.codeNFC) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
