@@ -2,7 +2,7 @@
 var Sequelize = require('sequelize');
 
 module.exports = function (sequelize, DataTypes) {
-    var DoorAC = sequelize.define('Todo', {
+    var DoorAC = sequelize.define('DoorAC', {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
