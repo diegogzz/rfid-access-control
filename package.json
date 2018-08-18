@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "cd ./admin && npm i && npm run build && cd .. && node ./bin/www"
+    "start": "cd ./admin && npm i && npm run build && cd .. && node ./bin/www",
+    "dev": "node ./bin/www"
   },
   "dependencies": {
     "@angular/animations": "^6.1.3",
